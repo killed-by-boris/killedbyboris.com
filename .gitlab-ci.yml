@@ -1,3 +1,16 @@
+image: node:13.13.0
+
+cache:
+  paths:
+  - node_modules/
+
+stages:
+- install
+- lint
+- build
+- test
+- deploy
+
 pages:
   stage: install
   script:
