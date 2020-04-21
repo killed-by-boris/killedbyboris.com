@@ -1,8 +1,10 @@
-.PHONY: help all clean install lint build test
+.PHONY: help all clean install lint build test spell
 
 
 help:
-	@echo  'Targets: help all clean install lint build test'
+	@echo  'Targets:
+	@echo  ' * all [clean install lint build test]'
+	@echo  ' * spell - requires aspell'  
 
 all: clean install lint build test
 
@@ -25,3 +27,6 @@ build:
 
 test:
 	npm test
+spell:
+	for file in *.md ; do aspell check $$file ;done
+	aspell check -H index.md
