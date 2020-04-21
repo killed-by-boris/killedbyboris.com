@@ -5,29 +5,17 @@ cache:
   - node_modules/
 
 stages:
-- install
-- lint
-- build
-- test
+- test 
 - deploy
 
 pages:
-  stage: install
-  script:
-    - npm install
-
-  stage: lint
-  script:
-    - npm run lint
-
   stage: test
   script:
-    - npm run build
-    - npm run test
+    - make all 
 
   stage: deploy
   script:
-    - npm run build
+    - make all 
   artifacts:
     paths:
       - public
