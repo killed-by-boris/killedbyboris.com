@@ -1,0 +1,22 @@
+pages:
+  stage: install
+  script:
+    - npm install
+
+  stage: lint
+  script:
+    - npm run lint
+
+  stage: test
+  script:
+    - npm run build
+    - npm run test
+
+  stage: deploy
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - public
+  only:
+    - master

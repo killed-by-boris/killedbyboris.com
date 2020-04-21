@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How many people has Boris's incompetence killed?</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Security-Policy" content="connect-src https://api.coronatab.app/">
+
+    <script type="text/javascript" src="./calculateAvoidableDeaths.js"></script>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/flag-icon.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+  </head>
+  <body onload="getAvoidableDeaths()">
+    <div id="all">
+      <div id="main">
+        <div id="data" onclick="hideCountryPicker()">
+          <div class="headline">
+            <span id="killer">Boris</span>'s
+            <span id="incompetenceToggle" onclick="showIncompetence()" onblur="hideIncompetence()" class="key">incompetence</span>
+            has caused
+          </div>
+          <div id="incompetence" class="popup" onclick="hideIncompetence()">
+            <ul>
+              <li><a href="https://www.thetimes.co.uk/article/coronavirus-38-days-when-britain-sleepwalked-into-disaster-hq3b9tlgh">Did nothing for 5 weeks</a></li>
+              <li><a href="https://www.mirror.co.uk/news/politics/boris-johnson-skipped-five-cobra-21889286">Skipped 5 cobra meetings</a></li>
+              <li><a href="https://www.bma.org.uk/news-and-opinion/doctors-still-without-adequate-supplies-of-ppe-major-bma-survey-finds">Hasn't provided front-line staff with sufficient PPE</a></li>
+              <li><a href="https://www.theguardian.com/fashion/2020/apr/16/government-ignores-uk-textiles-firms-desperate-to-make-ppe">Hasn't co-ordination companies that are offering to provide PPE</a></li>
+              <li><a href="https://www.dailymail.co.uk/news/article-8120425/London-stays-open-business-Cafes-shops-flout-government-advice-shut-down.html">Indecisive on lock-down </a></li>
+              <li><a href="https://fullfact.org/media/uploads/changes_in_uk_public_spending_on_health_by_govt.png">Underfunded the NHS for a decade</a></li>
+              <li><a href="https://metro.co.uk/2020/04/18/flights-still-bringing-15000-people-day-uk-no-screening-12574861/">Isn't screening airports</a></li>
+              <li><a href="https://www.independent.co.uk/news/uk/politics/coronavirus-brussels-uk-ventilators-eu-scheme-communication-a9430571.html">Hasn't joined the EU ventilator program</a></li>
+              <li><a href="https://www.nytimes.com/2020/04/16/world/europe/uk-coronavirus-lockdown-exit.html">Hasn't got a plan for ending lock-down</a></li>
+            </ul>
+          </div>
+          <div class="headline" onclick="hideIncompetence()">
+            <span id="avoidable" class="key"><noscript>14,683</noscript></span> Avoidable deaths
+          </div>
+        </div>
+        <div id="reference">
+          compared to <span id="country" onclick="showCountryPicker()" class="flag-icon flag-icon-nz"></span>
+          <div id="countryPicker" class="popup">
+            <div id="quickPicks" onclick="hideCountryPicker()" ></div>
+            <div id="otherCountries">
+              <a id="getAllCountries" href="javascript:getAllCountries()">Show more</a>
+            </div>
+          </div>
+        </div>
+        <div id="FAQ"><a href="FAQ.html">FAQ</a></div>
+      </div>
+      <noscript>
+        Numbers are accurate as of 18/04/2020
+        (enable JavaScript for an up to date estimate, and the ability to compare to different countries)
+      </noscript>
+    </div>
+  </body>
+</html>

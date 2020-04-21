@@ -1,0 +1,41 @@
+{
+  "name": "killed-by-boris",
+  "version": "0.9.0",
+  "description": "Static site to keep track of how many people Boris's incompetent handling of COVID has killed.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/killedby/KilledbyBoris.git"
+  },
+  "keywords": [
+    "COVID",
+    "COVID-19",
+    "Boris",
+    "Johnson",
+    "Conservative"
+  ],
+  "author": "***REMOVED***",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://gitlab.com/killedby/KilledbyBoris/issues"
+  },
+  "homepage": "https://gitlab.com/killedby/KilledbyBoris#readme",
+  "dependencies": {
+    "flag-icon-css": "^3.4.6",
+    "htmllint-cli": "0.0.7",
+    "link-checker": "^1.4.0",
+    "showdown": "^1.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  },
+  "scripts": {
+    "lint": "eslint . && htmllint *.html",
+    "build": "make build",
+    "test": "link-checker public/"
+  }
+}

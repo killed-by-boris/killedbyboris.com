@@ -1,0 +1,97 @@
+html{
+  background-color: black;
+  background-image: url('../images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: whitesmoke;
+
+  font-family: 'Times New Roman', Times, serif;
+}
+
+#all {
+  height: 80%;
+  width: 80%;
+
+  height: 80vh;
+  width: 80vw;
+  margin: auto;
+  margin-top: max(10%, auto);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.headline {
+  line-height: min(25vh,250px);
+  font-size: calc(15px + 4vw);
+  font-weight: 600;
+}
+
+#reference {
+  line-height: min(10vh,100px);
+  font-size: calc(10px + 2.1vw);
+  text-align: center;
+  margin: auto;
+}
+
+.key {
+  color: red;
+  font-variant-numeric: lining-nums;
+  font-weight: bolder;
+  font-size: 120%;
+  text-decoration: underline;
+}
+
+.popup {
+  visibility: collapse;
+  border-radius: 1em;
+  width: auto;
+  background-color: black;
+  opacity: 0.9;
+  line-height: 1;
+  z-index: 1;
+  margin: auto;
+  align-self: center;
+}
+
+#countryPicker {
+  font-size: 70%;
+  position: relative;
+}
+
+#incompetence {
+  position: fixed;
+  font-size: 5vh;
+  top: 18%;
+}
+
+.flag-icon {
+  margin: 1%;
+  opacity: 1;
+}
+
+a {
+  color: darkred;
+}
+
+strong {
+  color: red;
+}
+
+
+h1 {
+  font-size: 4em;
+  font-weight: 650;
+  text-align: center;
+}
+
+h2 {
+  font-size: 3em;
+  text-decoration: underline;
+  font-weight: 550;
+  text-align: center;
+}
+
+h3, #FAQ {
+  font-size: 2em;
+  font-weight: 450;
+}
