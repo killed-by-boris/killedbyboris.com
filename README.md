@@ -6,7 +6,7 @@ Static site to keep track of how many people Boris's incompetent handling of COV
 
 ## Data
 
-This pulls the data from https://api.coronatab.app/
+This pulls the data from https://corona-api.com/
 who are in no way affiliated with this project
 
 ## Usage
@@ -29,8 +29,9 @@ Submit a PR, if it fails linting or testing, it will be rejected
 
 ## TODO
 
-* [] replace build script with webpack/similar
-* [] replace npm with yarn/similar
+* Replace build script with webpack/similar
+* Replace npm with yarn/similar
+* Use promises instead of manually 
 
 ## Built With
 

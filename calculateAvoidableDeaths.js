@@ -1,7 +1,7 @@
 // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later
 
 const baseTitle = document.title
-const baseAPI = 'https://api.coronatab.app/places'
+const baseAPI = 'https://corona-api.com/countries'
 const quickPickGrid = [
   ['PL', 'DE', 'IE'],
   ['CA', 'NZ', 'AU'],
@@ -11,23 +11,23 @@ const quickPickGrid = [
 
 var stats = {}
 var parameters = {
-  ref: 'NZ'
+  comp: 'NZ'
 }
 var countries = {
-  GB: 'united-kingdom',
-  DE: 'germany',
-  IE: 'ireland',
-  PL: 'poland',
-  CA: 'canada',
-  NZ: 'new-zealand',
-  AU: 'australia',
-  TW: 'taiwan',
-  HK: 'hong-kong',
-  KR: 'south-korea',
-  JP: 'japan',
-  SG: 'singapore',
-  CN: 'china',
-  IR: 'iran'
+  GB: 'United Kingdom',
+  DE: 'Germany',
+  IE: 'Ireland',
+  PL: 'Poland',
+  CA: 'Canada',
+  NZ: 'New Zealand',
+  AU: 'Australia',
+  TW: 'Taiwan',
+  HK: 'Hong Kong',
+  KR: 'South Korea',
+  JP: 'Japan',
+  SG: 'Singapore',
+  CN: 'China',
+  IR: 'Iran'
 }
 
 var called = []
@@ -68,26 +68,24 @@ function parseParemeters () {
     }
   })
 
-  document.getElementById('country').className = `flag-icon flag-icon-${parameters.ref.toLowerCase()}`
+  document.getElementById('country').className = `flag-icon flag-icon-${parameters.comp.toLowerCase()}`
 }
 
 function calculateAvoidableDeaths () {
-  if (['GB', parameters.ref].map(ensureStatsPresent).every(x => x)) {
-    var seconds = getSeconds()
+  if (['GB', parameters.comp].map(ensureStatsPresent).every(x => x)) {
+    var seconds = new Date().getTime()
     var gb = stats.GB
-    var ref = stats[parameters.ref]
-    gb.projected = gb.latestData.deaths + (gb.rate * seconds)
-    ref.projected = ref.latestData.deaths + (ref.rate * seconds)
-    var avoidableDeaths = gb.projected - (ref.projected * gb.population / ref.population)
+    var comp = stats[parameters.comp]
+    gb.projected = gb.latest_data.deaths + (gb.rate * (seconds - gb.updated))
+    comp.projected = comp.latest_data.deaths + (comp.rate * (seconds - comp.updated))
+    var avoidableDeaths = gb.projected - (comp.projected * gb.population / comp.population)
     updateAvoidableDeaths(parseInt(avoidableDeaths))
   }
 }
 
 function ensureStatsPresent (country) {
-  if (!(country in countries)) {
-    getAllCountries()
-  } else if (!(country in stats)) {
-    callAPI(`/${countries[country]}`, updateCountry)
+  if (!(country in stats)) {
+    callAPI(`/${country}`, updateCountry)
   } else if (!('rate' in stats[country])) {
     getCountryRate(country)
   } else {
@@ -97,30 +95,36 @@ function ensureStatsPresent (country) {
 
 function updateCountry (response) {
   updateCountryData(response.data)
-  getCountryRate(response.data.alpha2code)
+  getCountryRate(response.data.code)
 }
 
 function getCountryRate (country) {
-  callAPI(`/${countries[country]}/data`, caclulateRate.bind(this, country))
-}
+  var data = stats[country]
+  var updated = new Date(stats[country].updated_at)
+  data.updated = updated.getTime()
 
-function caclulateRate (country, response) {
-  var rate = ((response.meta.projected[0].deaths - response.data[response.data.length - 1].deaths) / (24 * 60 * 60))
-  stats[country].rate = rate
+  // if we don't have timeline data estimate since midnight
+  var timeDiff = (('timeline' in data) && (data.timeline.length > 1))
+    ? data.updated - new Date(data.timeline[1].updated_at).getTime()
+    : getMilliSecondsSinceMidnight(updated)
+
+  data.rate = data.today.deaths / timeDiff
   if (country === 'GB') {
     /* Do this here so only 1 setInterval will be run */
-    var interval = parseInt(1000 / rate)
+    var interval = parseInt(1 / data.rate)
     console.log(`Browser update interval: ${interval}ms :'(`)
     setInterval(calculateAvoidableDeaths, interval)
   }
   calculateAvoidableDeaths()
 }
 
-function getSeconds () {
-  /* todo: calculate based on timezone */
-  var now = new Date()
-  var seconds = (60 * ((60 * now.getUTCHours()) + now.getUTCMinutes())) + now.getSeconds()
-  return seconds
+function getMilliSecondsSinceMidnight (time) {
+  return time.getUTCMilliseconds() +
+    (1000 * (time.getSeconds() +
+      (60 * (time.getUTCMinutes() +
+        (60 * time.getUTCHours())
+      ))
+    ))
 }
 
 function updateAvoidableDeaths (avoidableDeaths) {
@@ -177,24 +181,18 @@ function generateFlag (country) {
   var flag = document.createElement('span')
   flag.id = `flag-${country.toLowerCase()}`
   flag.className = `flag-icon flag-icon-${country.toLowerCase()}`
-  flag.title = (country in stats) ? stats[country].name : toTitleCase(countries[country])
+  flag.title = (country in stats) ? stats[country].name : countries[country]
   flag.onclick = pickCountry.bind(this, country)
   return flag
-}
-
-function toTitleCase (string) {
-  return string.split('-').map(function (word) {
-    return word[0].toUpperCase() + word.slice(1)
-  }).join(' ')
 }
 
 function pickCountry (country) {
   var newTitle = `${baseTitle} - (compared to ${country})`
   var newURL = document.URL
-  if (window.location.search.indexOf(`ref=${parameters.ref}`) > 0) {
-    newURL = newURL.replace(`ref=${parameters.ref}`, `ref=${country}`)
+  if (window.location.search.indexOf(`comp=${parameters.comp}`) > 0) {
+    newURL = newURL.replace(`comp=${parameters.comp}`, `comp=${country}`)
   } else {
-    newURL += `?ref=${country}`
+    newURL += `?comp=${country}`
   }
   history.pushState({ id: country }, newTitle, newURL)
   parseParemeters()
@@ -203,7 +201,7 @@ function pickCountry (country) {
 
 function getAllCountries () {
   document.getElementById('getAllCountries').textContent = 'Loading more countries...'
-  callAPI('?typeId=country', updateCountriesList)
+  callAPI('', updateCountriesList)
 }
 
 function updateCountriesList (response) {
@@ -216,18 +214,13 @@ function updateCountriesList (response) {
 }
 
 function updateCountryData (data) {
-  var alpha2code = data.alpha2code
-  data.deathsPerPop = data.latestData.deaths / data.population
+  data.deathsPerPop = data.latest_data.deaths / data.population
   if ('GB' in stats && data.deathsPerPop >= stats.GB.deathsPerPop) {
     return
   }
-  stats[alpha2code] = data
-  if (!(alpha2code in countries)) {
-    countries[alpha2code] = data.id
-    if (parameters.ref === data.id) {
-      calculateAvoidableDeaths()
-    }
-    return alpha2code
+  stats[data.code] = data
+  if (!(data.code in countries)) {
+    return data.code
   }
 }
 
