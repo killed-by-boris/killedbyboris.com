@@ -41,13 +41,17 @@
 ### Isn't it easy to criticise in hindsight?
 
 Other world leaders didn't need hindsight to do a better job than Boris.
+
 The world has known a pandemic is coming, experts have been warning for years,
+
 this is why [the US **had** a pandemic response team setup](https://www.theguardian.com/world/2020/apr/03/trump-scrapped-pandemic-early-warning-program-system-before-coronavirus).
 
 ### Didn't China/WHO/etc lie?
 
 The entire world had access to the same information coming out of China 
+
 (delayed or otherwise), so that information clearly isn't the determining
+
 factor in why the UK has tens of thousands more avoidable deaths.
 
 ### How can I suggest changes to this site?

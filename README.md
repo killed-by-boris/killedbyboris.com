@@ -34,7 +34,7 @@ Submit a PR, if it fails linting or testing, it will be rejected
 
 ## Built With
 
-* [showdown](https://github.com/showdownjs/showdown) - Markdown converter written in Javascript
+* [showdown](https://github.com/showdownjs/showdown) - Markdown converter written in JavaScript
 * [flag-icon-css](https://github.com/lipis/flag-icon-css) - A collection of all country flags in SVG
 * Nothing else for now, mostly for performance and privacy of users.
 
