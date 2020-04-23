@@ -16,7 +16,7 @@
 
 * [Joining Europe wide calls about the progress of the virus (that non-EU member where on)][European Calls]
 
-* [Send Boris to COBRA calls about COVID][Missed COBRA Meetings]
+* [Send Boris to COBRA calls about COVID][Missed COBRA Meetings] ([Boris went on Holiday instead][Holiday])
 
 * [Do anything about the NHS's under-funding, despite being the party that's been in power for a decade][NHS under-funding]
 
@@ -76,7 +76,7 @@ The handling of the pandemic is inherently political
 
 * [Not joining Europe wide calls about the progress of the virus][European Calls], **is political**
 
-* [Skipping COBRA meetings][Missed COBRA Meetings], **is political**
+* [Skipping COBRA meetings][Missed COBRA Meetings] to [Go on Holiday][Holiday], **is political**
 
 * [Failing to co-ordination companies that are offering to help][Uncoordinated] **is incompetence** (ignoring it **is political**)
 
@@ -117,3 +117,4 @@ so it's about time he's held accountable for his actions (or the lack of them).
 [Missed COBRA Meetings]: https://www.mirror.co.uk/news/politics/boris-johnson-skipped-five-cobra-21889286
 [blaming NHS staff]: https://www.theguardian.com/society/2020/apr/10/matt-hancock-urges-public-not-to-overuse-ppe
 [Fake Doctors]: https://twitter.com/jdpoc/status/1252266724449230848
+[Holiday]: https://www.vice.com/en_uk/article/7kzn3y/boris-johnson-holidays-coronavirus

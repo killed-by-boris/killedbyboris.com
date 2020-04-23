@@ -29,4 +29,4 @@ test:
 	npm test
 spell:
 	for file in *.md ; do aspell check $$file ;done
-	aspell check -H index.md
+	aspell check -H index.html
