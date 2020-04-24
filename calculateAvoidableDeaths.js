@@ -86,7 +86,7 @@ function calculateAvoidableDeaths () {
       comp: parseInt(comp.projected).toLocaleString(),
       ratio: Number.parseFloat(popRatio).toPrecision(2),
       avoidable: parseInt(avoidableDeaths).toLocaleString(),
-      compTotal: parseInt(comp.projected*popRatio).toLocaleString()
+      compTotal: parseInt(comp.projected * popRatio).toLocaleString()
     }
 
     var avoidable = document.getElementById('avoidable')
