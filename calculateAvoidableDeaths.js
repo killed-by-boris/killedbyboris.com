@@ -76,10 +76,27 @@ function calculateAvoidableDeaths () {
     var seconds = new Date().getTime()
     var gb = stats.GB
     var comp = stats[parameters.comp]
+    var popRatio = gb.population / comp.population
     gb.projected = gb.latest_data.deaths + (gb.rate * (seconds - gb.updated))
     comp.projected = comp.latest_data.deaths + (comp.rate * (seconds - comp.updated))
-    var avoidableDeaths = gb.projected - (comp.projected * gb.population / comp.population)
-    updateAvoidableDeaths(parseInt(avoidableDeaths))
+    var avoidableDeaths = gb.projected - (comp.projected * popRatio)
+
+    var out = {
+      GB: parseInt(gb.projected).toLocaleString(),
+      comp: parseInt(comp.projected).toLocaleString(),
+      ratio: Number.parseFloat(popRatio).toPrecision(2),
+      avoidable: parseInt(avoidableDeaths).toLocaleString(),
+      compTotal: parseInt(comp.projected*popRatio).toLocaleString()
+    }
+
+    var avoidable = document.getElementById('avoidable')
+    avoidable.innerText = out.avoidable
+    avoidable.title = `
+      UK deaths\t-\t${parameters.comp} deaths\t*\tPopRatio\n
+      ${out.GB}\t\t-\t${out.comp}\t*\t${out.ratio}\n
+      ${out.GB}\t\t-\t${out.compTotal}\n
+      ${out.avoidable}
+    `
   }
 }
 
@@ -131,10 +148,6 @@ function getMilliSecondsSinceMidnight (time) {
         (60 * time.getUTCHours())
       ))
     ))
-}
-
-function updateAvoidableDeaths (avoidableDeaths) {
-  document.getElementById('avoidable').innerText = avoidableDeaths.toLocaleString()
 }
 
 function hideIncompetence () {
