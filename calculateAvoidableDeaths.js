@@ -37,7 +37,7 @@ function callAPI (url, callback) {
       function (url) {
         called.pop(url)
       },
-      5000
+      30000
     )
   } else {
     called.push(url)
@@ -64,7 +64,7 @@ function parseParemeters () {
   queryElements.forEach(function (elem) {
     var sub = elem.split('=')
     if (sub.length > 1) {
-      parameters[sub[0]] = sub[1]
+      parameters[sub[0]] = sub[1].toUpperCase()
     }
   })
 
@@ -100,22 +100,28 @@ function updateCountry (response) {
 
 function getCountryRate (country) {
   var data = stats[country]
-  var updated = new Date(stats[country].updated_at)
-  data.updated = updated.getTime()
+  data.updated = new Date(stats[country].updated_at)
+  data.hasTimeline = (('timeline' in data) && (data.timeline.length > 1))
 
   // if we don't have timeline data estimate since midnight
-  var timeDiff = (('timeline' in data) && (data.timeline.length > 1))
-    ? data.updated - new Date(data.timeline[1].updated_at).getTime()
-    : getMilliSecondsSinceMidnight(updated)
-
-  data.rate = data.today.deaths / timeDiff
-  if (country === 'GB') {
-    /* Do this here so only 1 setInterval will be run */
-    var interval = parseInt(1 / data.rate)
-    console.log(`Browser update interval: ${interval}ms :'(`)
-    setInterval(calculateAvoidableDeaths, interval)
+  data.rate = 0
+  if (data.today.deaths > 0) {
+    var timeDiff = data.hasTimeline
+      ? data.updated - new Date(data.timeline[1].updated_at)
+      : getMilliSecondsSinceMidnight(data.updated)
+    data.rate = data.today.deaths / timeDiff
+  } else if (data.hasTimeline) {
+    data.rate = data.timeline[0].new_deaths /
+      (new Date(data.timeline[0].updated_at) - new Date(data.timeline[1].updated_at))
   }
+  if (country === 'GB' && data.rate > 0) { setUpdateInterval(data.rate) }
   calculateAvoidableDeaths()
+}
+
+function setUpdateInterval (rate) {
+  /* Do this here so only 1 setInterval will be run */
+  console.log(`Browser update interval: ${parseInt(1000 / rate)}s :'(`)
+  setInterval(calculateAvoidableDeaths, parseInt(1 / rate))
 }
 
 function getMilliSecondsSinceMidnight (time) {
@@ -187,16 +193,7 @@ function generateFlag (country) {
 }
 
 function pickCountry (country) {
-  var newTitle = `${baseTitle} - (compared to ${country})`
-  var newURL = document.URL
-  if (window.location.search.indexOf(`comp=${parameters.comp}`) > 0) {
-    newURL = newURL.replace(`comp=${parameters.comp}`, `comp=${country}`)
-  } else {
-    newURL += `?comp=${country}`
-  }
-  history.pushState({ id: country }, newTitle, newURL)
-  parseParemeters()
-  calculateAvoidableDeaths()
+  window.location.search = `?comp=${country}`
 }
 
 function getAllCountries () {
