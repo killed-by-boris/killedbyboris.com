@@ -56,7 +56,7 @@ factor in why the UK has tens of thousands more avoidable deaths.
 
 ### How can I suggest changes to this site?
 
-Either submit a pull request [here](https://gitlab.com/killedby/KilledbyBoris) or contact me [here](mailto:killedby@killedbyboris.com)
+Either submit a pull request [here](https://github.com/killed-by-boris/killedbyboris.com) or contact me [here](mailto:killedby@killedbyboris.com)
 
 ## Not Questions
 
