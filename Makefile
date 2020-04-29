@@ -2,7 +2,7 @@
 
 
 help:
-	@echo  'Targets:
+	@echo  'Targets:'
 	@echo  ' * all [clean install lint build test]'
 	@echo  ' * spell - requires aspell'  
 
