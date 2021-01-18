@@ -1,6 +1,6 @@
 # Killed By Boris 
 
-[https://KilledByBoris.UK](KilledByBoris.UK) & [https://KilledByBoris.com](KilledByBoris.com)
+[KilledByBoris.UK](https://KilledByBoris.UK) & [KilledByBoris.com](https://KilledByBoris.com)
 
 Static site to keep track of how many people Boris's incompetent handling of COVID has killed.
 
